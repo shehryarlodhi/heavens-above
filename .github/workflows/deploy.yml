@@ -26,22 +26,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # Ensure the repository is checked out again in the deployment step
-
+      uses: actions/checkout@v2
+      
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '14'
-
+      
     - name: Install Heroku CLI
       run: |
         curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-
+      
     - name: Log in to Heroku
-      run: heroku auth:token | xargs heroku login -i
-
+      run: echo ${{ secrets.HEROKU_API_KEY }} | heroku login --interactive
+      
     - name: Deploy to Heroku
       run: |
         git config user.name "Heroku-Deploy"
-        git config user.email "heroku-deploy@example.com"
+        git config user.email "${{ secrets.HEROKU_EMAIL }}"
         git push heroku main
+      
+
+
+
