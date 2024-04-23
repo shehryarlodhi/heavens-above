@@ -43,7 +43,7 @@ jobs:
     - name: Deploy to Heroku
       run: |
         git config user.name "Heroku-Deploy"
-        git config user.email "${{ secrets.HEROKU_EMAIL }}"
+        git config user.email "lodhishehryarkhan@gmail.com"
         git push heroku main
       
 
