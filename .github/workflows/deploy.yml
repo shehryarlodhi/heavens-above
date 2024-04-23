@@ -21,16 +21,27 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    # - name: Build application
-    #   run: npm run build
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to Heroku
-      uses: akhileshns/heroku-deploy@v3.12.12
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Ensure the repository is checked out again in the deployment step
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
       with:
-        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: "your-heroku-app-name"
-        heroku_email: "your-heroku-email@example.com"
+        node-version: '14'
+
+    - name: Install Heroku CLI
+      run: |
+        curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
+    - name: Log in to Heroku
+      run: heroku auth:token | xargs heroku login -i
+
+    - name: Deploy to Heroku
+      run: |
+        git config user.name "Heroku-Deploy"
+        git config user.email "heroku-deploy@example.com"
+        git push heroku main
