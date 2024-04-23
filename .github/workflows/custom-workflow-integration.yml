@@ -1,0 +1,18 @@
+name: Release Notes Generation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-notes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Generate release notes
+      run: |
+        # Add commands to generate release notes
