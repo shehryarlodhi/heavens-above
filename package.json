@@ -27,5 +27,10 @@
   "homepage": "https://github.com/PKUPI/heavens-above#readme",
   "engines": {
     "node": ">=12.10.0"
+  },
+  "scripts": {
+    "lint": "eslint ."
   }
+  
+  
 }
